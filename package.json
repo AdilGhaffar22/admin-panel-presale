@@ -16,7 +16,7 @@
     "recharts": "^3.1.2",
     "viem": "^2.33.3",
     "wagmi": "^2.16.2",
-    "widget-button": "^1.1.0"
+    "widget-button": "^1.1.3"
   },
   "devDependencies": {
     "@types/node": "^20",

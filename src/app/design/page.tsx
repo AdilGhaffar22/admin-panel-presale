@@ -34,31 +34,40 @@ const queryClient = new QueryClient();
 interface WidgetSettings {
   title: string;
   description: string;
-  primaryColor: string;
+  titleColor: string;
   backgroundColor: string;
-  textColor: string;
+  contentColor: string;
   buttonColor: string;
   fontFamily: string;
   fontSize: string;
   position: string;
   borderRadius: string;
   shadow: boolean;
+  border?: boolean;
+  borderColor?: string;
+  borderWidth?: number;
+  tokenImage?: string;
 }
 
 export default function DesignPage() {
   const [settings, setSettings] = useState<WidgetSettings>({
     title: "Pre-Sale Widget",
     description: "Join our exclusive pre-sale and get early access!",
-    primaryColor: "#3B82F6",
+    titleColor: "#000000",
     backgroundColor: "#FFFFFF",
-    textColor: "#1F2937",
+    contentColor: "#1F2937",
+    borderWidth: 2,
     // buttonColor: "#ff0000",
     buttonColor: "#3B82F6",
     fontFamily: "Inter",
-    fontSize: "16",
+    borderColor: "#3B82F6",
+    fontSize: "24",
     position: "center",
     borderRadius: "8",
     shadow: true,
+    border: true,
+    tokenImage:
+      "https://fgf-coin.fairgradeforests.com/assets/images/fgfcoin.svg",
   });
 
   const handleSettingChange = (
@@ -123,22 +132,22 @@ export default function DesignPage() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Primary Color
+                  Title Color
                 </label>
                 <div className="flex items-center space-x-2">
                   <input
                     type="color"
-                    value={settings.primaryColor}
+                    value={settings.titleColor}
                     onChange={(e) =>
-                      handleSettingChange("primaryColor", e.target.value)
+                      handleSettingChange("titleColor", e.target.value)
                     }
                     className="w-12 h-10 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
                   />
                   <input
                     type="text"
-                    value={settings.primaryColor}
+                    value={settings.titleColor}
                     onChange={(e) =>
-                      handleSettingChange("primaryColor", e.target.value)
+                      handleSettingChange("titleColor", e.target.value)
                     }
                     className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                   />
@@ -174,17 +183,17 @@ export default function DesignPage() {
                 <div className="flex items-center space-x-2">
                   <input
                     type="color"
-                    value={settings.textColor}
+                    value={settings.contentColor}
                     onChange={(e) =>
-                      handleSettingChange("textColor", e.target.value)
+                      handleSettingChange("contentColor", e.target.value)
                     }
                     className="w-12 h-10 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
                   />
                   <input
                     type="text"
-                    value={settings.textColor}
+                    value={settings.contentColor}
                     onChange={(e) =>
-                      handleSettingChange("textColor", e.target.value)
+                      handleSettingChange("contentColor", e.target.value)
                     }
                     className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                   />
@@ -208,6 +217,29 @@ export default function DesignPage() {
                     value={settings.buttonColor}
                     onChange={(e) =>
                       handleSettingChange("buttonColor", e.target.value)
+                    }
+                    className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Border Color
+                </label>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="color"
+                    value={settings.borderColor}
+                    onChange={(e) =>
+                      handleSettingChange("borderColor", e.target.value)
+                    }
+                    className="w-12 h-10 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
+                  />
+                  <input
+                    type="text"
+                    value={settings.borderColor}
+                    onChange={(e) =>
+                      handleSettingChange("borderColor", e.target.value)
                     }
                     className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                   />
@@ -252,7 +284,7 @@ export default function DesignPage() {
                       handleSettingChange("fontSize", e.target.value)
                     }
                     min="12"
-                    max="24"
+                    max="48"
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                   />
                 </div>
@@ -287,7 +319,7 @@ export default function DesignPage() {
                       handleSettingChange("borderRadius", e.target.value)
                     }
                     min="0"
-                    max="20"
+                    max="100"
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                   />
                 </div>
@@ -307,6 +339,54 @@ export default function DesignPage() {
                     <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">
                       Enable shadow
                     </span>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Border Width (px)
+                  </label>
+                  <input
+                    type="number"
+                    value={settings.borderWidth}
+                    onChange={(e) =>
+                      handleSettingChange("borderWidth", e.target.value)
+                    }
+                    min="0"
+                    max="20"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Border
+                  </label>
+                  <div className="flex items-center h-10">
+                    <input
+                      type="checkbox"
+                      checked={settings.border}
+                      onChange={(e) =>
+                        handleSettingChange("border", e.target.checked)
+                      }
+                      className="w-4 h-4 text-blue-600 bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500"
+                    />
+                    <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                      Enable border
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Token Image
+                  </label>
+                  <div className="flex items-center h-10">
+                    <input
+                      type="text"
+                      value={settings.tokenImage}
+                      onChange={(e) =>
+                        handleSettingChange("tokenImage", e.target.checked)
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                    />
                   </div>
                 </div>
               </div>
@@ -383,8 +463,36 @@ export default function DesignPage() {
                   title={settings.title}
                   theme="dark"
                   onBuyCard={() => alert("Working Bro!")}
-                  buttonStyle={{ backgroundColor: settings.buttonColor }}
-                  // buttonStyle={`!bg-[${settings.buttonColor}]`}
+                  description={settings.description}
+                  buttonStyle={{
+                    backgroundColor: settings.buttonColor,
+                    fontFamily: settings.fontFamily,
+                  }}
+                  titleStyle={{
+                    color: settings.titleColor,
+                    fontFamily: settings.fontFamily,
+                    fontSize: `${settings.fontSize}px`,
+                  }}
+                  contentStyle={{
+                    color: settings.contentColor,
+                    fontFamily: settings.fontFamily,
+                  }}
+                  container={{
+                    backgroundColor: settings.backgroundColor,
+                    borderRadius: `${settings.borderRadius}px`,
+                    boxShadow: settings.shadow
+                      ? "0 10px 25px rgba(0, 0, 0, 0.1)"
+                      : "none",
+                    border: `${
+                      settings.border
+                        ? `${settings.borderWidth}px solid ${settings.borderColor}`
+                        : "none"
+                    }`,
+                  }}
+                  modalStyle={{
+                    backgroundColor: settings.backgroundColor,
+                    borderRadius: `${settings.borderRadius}px`,
+                  }}
                 />
               </DynamicContextProvider>
             </WagmiProvider>
